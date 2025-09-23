@@ -18,7 +18,7 @@ INSERT INTO famous VALUES
 WITH distinct_users AS
 (
 SELECT  user_id as uid FROM Famous  UNION SELECT follower_id as uid FROM Famous
-),
+), 
 Follower_count AS
 (
 SELECT user_id, count(follower_id) as followers
