@@ -33,6 +33,13 @@ Given a table 'sf_transactions' of purchases by date, calculate the month-over-m
 
 ```sql
 
-sol
-
+WITH Monthlyrevenue AS
+(
+SELECT DATEFORMAT(created at , %Y,%m) AS year_month, SUM(value) AS revenue
+FROM sf_transactions
+GROUP BY year_month
+)
+SELECT year_month, round(revenue - LAG(revenue) OVER (ORDER BY year_month)/ LAG(revenue) OVER (ORDER BY year_month) * 100,2) AS pct_change
+FROM Monthlyrevenue 
+ORDER BY year_month
 ```
